@@ -392,14 +392,6 @@ Create alerts in Datadog UI:
 - Error log rate spike
 - Application latency increase
 
-## Cost Considerations
-
-### Infrastructure Costs (AWS)
-
-**No additional infrastructure required!**
-- No EBS volumes for storage
-- No LoadBalancer for UI access
-- Only agent pods running on existing nodes
 
 ## Troubleshooting
 
