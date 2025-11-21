@@ -307,7 +307,7 @@ Features:
 - Log patterns and analytics
 - Automatic parsing of common formats
 - Live tail mode
-- Log archives to S3
+- Log archives to S3 (Optional)
 
 **Example Queries**:
 ```
@@ -400,31 +400,6 @@ Create alerts in Datadog UI:
 - No EBS volumes for storage
 - No LoadBalancer for UI access
 - Only agent pods running on existing nodes
-
-### Datadog Service Costs
-
-Pricing varies by features used:
-
-| Plan | Features | Est. Cost (per host/month) |
-|------|----------|---------------------------|
-| **Logs** | Log ingestion and retention | $0.10/GB ingested + $1.70/M indexed |
-| **Infrastructure** | Metrics and monitoring | $15/host |
-| **APM** | Distributed tracing | $31/host (with infra) |
-| **Network Monitoring** | Network visibility | Included with APM |
-
-**Example Cost** (2-node cluster):
-- Infrastructure monitoring: $30/month
-- APM: $62/month
-- Logs (10GB/month): ~$20/month
-- **Total**: ~$112/month
-
-**Free Trial**: Datadog offers 14-day free trial with all features.
-
-**Cost Optimization**:
-- Use log exclusion filters to reduce ingestion
-- Adjust log retention (3-15 days)
-- Disable features you don't need
-- Use sampling for high-volume traces
 
 ## Troubleshooting
 
