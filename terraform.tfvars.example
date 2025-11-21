@@ -1,0 +1,64 @@
+aws_region   = "<AWS_REGION>"
+cluster_name = "<EKS_CLUSTER_NAME>"
+aws_profile  = "<AWS_CLI_PROFILE>"
+
+# REQUIRED: Datadog API Key
+# Get this from: https://app.datadoghq.com/organization-settings/api-keys
+datadog_api_key = "<YOUR_DATADOG_API_KEY>"
+
+# OPTIONAL: Datadog Application Key (for advanced features)
+# Get this from: https://app.datadoghq.com/organization-settings/application-keys
+datadog_app_key = "<YOUR_DATADOG_APP_KEY>"
+
+# Datadog Site (choose based on your region)
+# Options: datadoghq.com (US1), datadoghq.eu (EU), us3.datadoghq.com (US3), 
+#          us5.datadoghq.com (US5), ap1.datadoghq.com (AP1), ddog-gov.com (Gov)
+datadog_site = "datadoghq.com"
+
+# Cluster name in Datadog UI (optional, defaults to cluster_name)
+datadog_cluster_name = "<EKS_CLUSTER_NAME>"
+
+# EKS Cluster Configuration
+create_eks_cluster  = 
+cluster_version     = 
+vpc_cidr            = 
+node_instance_type  = 
+node_desired_size   = 
+node_min_size       = 
+node_max_size       = 
+
+# Datadog namespace
+datadog_namespace = "<NAMESPACE>"
+
+# Feature toggles
+enable_logs           = true
+enable_metrics        = true
+enable_apm            = true
+enable_process_agent  = true
+enable_cluster_checks = true
+
+# Log collection configuration
+log_collection_config = {
+  container_collect_all = true
+  container_exclude     = ["name:datadog-agent"]
+  container_include     = []
+}
+
+# Agent resources
+agent_resources_requests_cpu    = ""
+agent_resources_requests_memory = ""
+agent_resources_limits_cpu      = ""
+agent_resources_limits_memory   = ""
+
+# Optional: Specify Helm chart version (leave empty for latest)
+datadog_helm_chart_version = ""
+
+# Optional: Enable Bookinfo demo application
+enable_bookinfo_demo = false
+
+# Additional tags
+tags = {
+  Environment = "development"
+  ManagedBy   = "terraform"
+  Project     = "eks-datadog-monitoring"
+}

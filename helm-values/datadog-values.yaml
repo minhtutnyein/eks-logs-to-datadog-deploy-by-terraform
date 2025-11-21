@@ -1,0 +1,119 @@
+# Datadog Agent Helm Chart Values
+# This file is templated by Terraform
+
+# Datadog configuration
+datadog:
+  # Collect logs from container stdout/stderr
+  logs:
+    enabled: true
+    containerCollectAll: true
+    containerCollectUsingFiles: true
+    
+  # APM (Application Performance Monitoring)
+  apm:
+    socketEnabled: true
+    portEnabled: true
+    
+  # Process monitoring
+  processAgent:
+    enabled: true
+    processCollection: true
+    
+  # Container lifecycle events
+  containerLifecycle:
+    enabled: true
+    
+  # Kubernetes events
+  collectEvents: true
+  
+  # Live processes
+  liveProcessCollection:
+    enabled: true
+    
+  # Kubernetes resources
+  kubeStateMetricsCore:
+    enabled: true
+    
+  # Tags for all metrics, logs, and traces
+  tags:
+    - "env:production"
+    - "cluster:${DATADOG_CLUSTER_NAME}"
+    - "region:${AWS_REGION}"
+    - "platform:eks"
+    - "terraform:true"
+    
+  # Container image collection
+  containerImage:
+    enabled: true
+    
+  # SBOM (Software Bill of Materials)
+  sbom:
+    enabled: true
+    containerImage:
+      enabled: true
+
+# Cluster Agent configuration
+clusterAgent:
+  enabled: true
+  replicas: 2
+  
+  # Admission controller for APM and DogStatsD auto-instrumentation
+  admissionController:
+    enabled: true
+    mutateUnlabelled: false
+    
+  # Cluster checks
+  confd:
+    kubernetes_state_core.yaml: |-
+      cluster_check: true
+      init_config:
+      instances:
+        - kube_state_url: http://kube-state-metrics.datadog.svc.cluster.local:8080/metrics
+    
+  # External metrics provider (for HPA)
+  metricsProvider:
+    enabled: true
+    useDatadogMetrics: true
+    
+  resources:
+    requests:
+      cpu: 200m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# Cluster checks runner
+clusterChecksRunner:
+  enabled: true
+  replicas: 2
+  
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+# Network Policy (optional)
+networkPolicy:
+  create: false
+
+# RBAC configuration
+rbac:
+  create: true
+  
+# Service Account
+serviceAccount:
+  create: true
+  name: datadog-agent
+
+# Priority class for critical workload
+priorityClassName: ""
+
+# Node selector, tolerations, and affinity
+# Uncomment if you want to schedule agents on specific nodes
+# nodeSelector: {}
+# tolerations: []
+# affinity: {}

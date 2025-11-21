@@ -1,0 +1,38 @@
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+!terraform.tfvars.example
+.terraform.tfstate.lock.info
+
+# Helm
+helm-values/*-generated.yaml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# files 
+*.md
+!README.md
+!SETUP-INSTRUCTIONS.md
+!QUICKSTART.md
+!CHANGES.md
+
+# Scripts
+*.sh
+!apply.sh
+!destroy.sh
