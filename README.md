@@ -645,11 +645,6 @@ Test endpoints from external locations:
 - Have team expertise in Elasticsearch
 - Need custom log processing
 - Tight budget constraints
-
-## License
-
-This configuration is provided as-is for educational and operational purposes.
-
 ---
 
 **Created**: 2025  
