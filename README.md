@@ -14,23 +14,6 @@ This setup deploys the Datadog Agent as a DaemonSet on your EKS cluster, providi
 - **Network Monitoring**: Network traffic and connections
 - **Kubernetes Monitoring**: Full visibility into K8s resources
 
-## Comparison: Datadog vs Elasticsearch/Kibana
-
-| Feature | ELK Stack | Datadog |
-|---------|-----------|---------|
-| **Setup Complexity** | High (3 components) | Low (Single agent) |
-| **Maintenance** | Self-managed | Fully managed SaaS |
-| **Storage** | Self-hosted (EBS volumes) | Cloud-managed |
-| **Infrastructure Cost** | ~$24/month (EBS + LB) | Agent only (no infra) |
-| **Datadog Service Cost** | Free | Paid ($15-31/host/month) |
-| **Scalability** | Manual scaling required | Auto-scales |
-| **APM/Tracing** | Requires additional setup | Built-in |
-| **Metrics** | Limited (add Metricbeat) | Comprehensive |
-| **Alerting** | Basic (add ElastAlert) | Advanced with ML |
-| **Retention** | Configure yourself | Configurable plans |
-| **Network Monitoring** | Not available | Built-in |
-| **Log Search** | Kibana Query Language | Datadog Log Explorer |
-| **UI** | Self-hosted Kibana | Cloud-based Datadog UI |
 
 ## Components
 
@@ -485,54 +468,6 @@ This will remove:
 
 **Note**: Data in Datadog cloud platform is retained per your account settings.
 
-## Migration from ELK Stack
-
-If migrating from the ELK stack:
-
-### 1. Keep Both Running (Dual Collection)
-
-Deploy Datadog alongside Elasticsearch to validate:
-
-```bash
-# Keep ELK running
-# Deploy Datadog in parallel
-cd eks-datadog-logs-deploy-by-terraform
-./apply.sh
-```
-
-### 2. Validate Data Collection
-
-Check that logs/metrics are flowing to both systems:
-- Compare log volumes in Kibana vs Datadog
-- Verify all namespaces are visible
-- Test queries and dashboards
-
-### 3. Migrate Dashboards
-
-- Recreate Kibana visualizations in Datadog
-- Set up Datadog monitors (alerts)
-- Configure notification channels
-
-### 4. Decomission ELK
-
-Once confident:
-
-```bash
-cd eks-elk-logs-deploy-by-terraform
-./destroy.sh
-```
-
-### Migration Checklist
-
-- [ ] Datadog agent running on all nodes
-- [ ] Logs appearing in Datadog
-- [ ] Metrics collection verified
-- [ ] APM instrumented (if needed)
-- [ ] Dashboards recreated
-- [ ] Alerts configured
-- [ ] Team trained on Datadog UI
-- [ ] Cost monitoring in place
-- [ ] ELK stack decomissioned
 
 ## File Structure
 
@@ -577,48 +512,6 @@ eks-datadog-logs-deploy-by-terraform/
 ✅ **Documentation**: Document custom integrations  
 ✅ **Testing**: Use test environments before production  
 
-## Advanced Features
-
-### Custom Metrics (DogStatsD)
-
-Send custom metrics from applications:
-
-```python
-from datadog import initialize, statsd
-
-initialize(statsd_host=os.environ['DD_AGENT_HOST'])
-statsd.increment('my.custom.metric', tags=['environment:prod'])
-```
-
-### Service Checks
-
-Monitor service health:
-
-```yaml
-# In datadog-values.yaml
-clusterAgent:
-  confd:
-    http_check.yaml: |-
-      cluster_check: true
-      init_config:
-      instances:
-        - name: My Service
-          url: http://myservice.default.svc.cluster.local
-```
-
-### Log Pipelines
-
-Process logs in Datadog:
-1. Go to **Logs** → **Pipelines**
-2. Create pipeline for your services
-3. Add processors (grok parser, remapper, etc.)
-
-### Synthetic Monitoring
-
-Test endpoints from external locations:
-1. Go to **Synthetic Monitoring**
-2. Create API or Browser test
-3. Set alerts for failures
 
 ## Support & Resources
 
