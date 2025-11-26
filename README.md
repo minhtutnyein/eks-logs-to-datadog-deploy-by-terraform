@@ -4,7 +4,7 @@ Complete Infrastructure as Code (IaC) solution for deploying Datadog on Amazon E
 
 ## Architecture Overview
 
-![alt text](assets/eks-datadog.png)
+![alt text](<assets/EKS Cluster with Datadog.png>)
 
 This setup deploys the Datadog Agent as a DaemonSet on your EKS cluster, providing:
 - **Log Collection**: Automatic collection from all containers
